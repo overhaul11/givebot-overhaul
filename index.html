@@ -42,6 +42,15 @@
             animation: slideIn 1.2s ease-in-out;
         }
 
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
         button {
             padding: 15px 30px;
             font-size: 1.2rem;
@@ -90,28 +99,43 @@
 <body>
     <div class="container">
         <h1 id="title">🎉 Участвуйте в розыгрыше! 🎉</h1>
-        <p id="message">Нажмите кнопку ниже, чтобы зарегистрироваться и получить шанс на победу!</p>
+        <p id="message">Для участия подпишитесь на канал: <a id="channelLink" href="#" target="_blank">Подписаться</a></p>
         <button id="participateButton" onclick="handleParticipation()">Участвовать</button>
     </div>
 
     <script>
+        // Кастомный текст под кнопкой "Участвовать"
+        const customMessage = "Если вы выйдите с канала во время проведения розыгрыша, Вы автоматически будете изгнаны с розыгрыша!";
+
+        // Устанавливаем кастомный текст
+        document.getElementById('message').innerText = customMessage;
+
+        // Получаем параметры из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const channelLink = urlParams.get('channel');
+
+        // Устанавливаем ссылку на канал
+        if (channelLink) {
+            document.getElementById('channelLink').href = `https://t.me/${channelLink}`;
+        }
+
         // Функция для обработки нажатия кнопки "Участвовать"
         function handleParticipation() {
             const title = document.getElementById('title');
             const message = document.getElementById('message');
             const button = document.getElementById('participateButton');
 
+            // Отправляем данные в бот
+            if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+                Telegram.WebApp.sendData(JSON.stringify({ action: "participate" }));
+            }
+
             // Меняем текст
             title.innerText = "🎉 Вы участвуете в розыгрыше! 🎉";
             message.innerText = "Спасибо за участие! Ждите результатов.";
             button.style.display = 'none'; // Скрываем кнопку после нажатия
 
-            // Отправляем данные в бот (если нужно)
-            if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-                Telegram.WebApp.sendData(JSON.stringify({ action: "participate" }));
-            }
-
-            // Закрываем мини-приложение через 2 секунды (если нужно)
+            // Закрываем мини-приложение через 2 секунды
             setTimeout(() => {
                 if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
                     Telegram.WebApp.close();
