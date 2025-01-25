@@ -5,43 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Участие в розыгрыше</title>
     <style>
+        /* Основные стили */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
         }
 
         .container {
             text-align: center;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 400px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            animation: slideIn 1.2s ease-in-out;
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
             color: white;
             background-color: #007bff;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
             button:hover {
                 background-color: #0056b3;
+                transform: scale(1.05);
             }
+
+            button:active {
+                transform: scale(0.95);
+            }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🎉 Участвуйте в розыгрыше! 🎉</h1>
-        <p>Нажмите кнопку ниже, чтобы зарегистрироваться.</p>
+        <p>Нажмите кнопку ниже, чтобы зарегистрироваться и получить шанс на победу!</p>
         <button onclick="sendData()">Участвовать</button>
     </div>
 
