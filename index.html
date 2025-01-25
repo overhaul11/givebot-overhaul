@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Участие в розыгрыше</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Участвуйте в розыгрыше! 🎉</h1>
+        <p>Нажмите кнопку ниже, чтобы зарегистрироваться.</p>
+        <button onclick="sendData()">Участвовать</button>
+    </div>
+
+    <script>
+        // Функция для отправки данных в бот
+        function sendData() {
+            // Отправляем данные в бот
+            Telegram.WebApp.sendData(JSON.stringify({ action: "participate" }));
+            // Закрываем мини-приложение
+            Telegram.WebApp.close();
+        }
+    </script>
+</body>
+</html>
