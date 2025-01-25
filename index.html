@@ -102,33 +102,32 @@
             const button = document.getElementById('participateButton');
 
             try {
-                // Проверяем, используется ли VPN (пример через IP-API)
-                const ipResponse = await fetch('https://ipapi.co/json/');
-                const ipData = await ipResponse.json();
+                // Временно отключаем проверку на VPN
+                // const ipResponse = await fetch('https://ipapi.co/json/');
+                // const ipData = await ipResponse.json();
 
-                // Пример проверки на VPN (можно использовать другие методы)
-                if (ipData.country !== 'RU') { // Замените 'RU' на код вашей страны
-                    title.innerText = "Ошибка!";
-                    message.innerText = "Не удалось принять участие. Отключите VPN.";
-                    button.style.display = 'none'; // Скрываем кнопку после ошибки
-                    return;
-                }
+                // if (ipData.country !== 'RU') {
+                //     title.innerText = "Ошибка!";
+                //     message.innerText = "Не удалось принять участие. Отключите VPN.";
+                //     button.style.display = 'none';
+                //     return;
+                // }
 
-                // Если VPN не используется, отправляем данные в бот
+                // Отправляем данные в бот
                 Telegram.WebApp.sendData(JSON.stringify({ action: "participate" }));
                 title.innerText = "🎉 Вы участвуете в розыгрыше! 🎉";
                 message.innerText = "Спасибо за участие! Ждите результатов.";
-                button.style.display = 'none'; // Скрываем кнопку после успешного участия
+                button.style.display = 'none';
 
                 // Закрываем мини-приложение через 2 секунды
                 setTimeout(() => {
                     Telegram.WebApp.close();
                 }, 2000);
             } catch (error) {
-                console.error("Ошибка при проверке IP:", error);
+                console.error("Ошибка:", error);
                 title.innerText = "Ошибка!";
                 message.innerText = "Не удалось принять участие. Попробуйте позже.";
-                button.style.display = 'none'; // Скрываем кнопку после ошибки
+                button.style.display = 'none';
             }
         }
     </script>
