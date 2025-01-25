@@ -95,44 +95,28 @@
     </div>
 
     <script>
-        // Проверяем, инициализирован ли Telegram Web App API
-        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-            // Инициализация прошла успешно
-            console.log("Telegram Web App API доступен.");
-        } else {
-            console.error("Telegram Web App API недоступен.");
-        }
-
         // Функция для обработки нажатия кнопки "Участвовать"
         function handleParticipation() {
             const title = document.getElementById('title');
             const message = document.getElementById('message');
             const button = document.getElementById('participateButton');
 
-            try {
-                // Проверяем, доступен ли Telegram Web App API
-                if (typeof Telegram === 'undefined' || !Telegram.WebApp) {
-                    throw new Error("Telegram Web App API недоступен.");
-                }
+            // Меняем текст
+            title.innerText = "🎉 Вы участвуете в розыгрыше! 🎉";
+            message.innerText = "Спасибо за участие! Ждите результатов.";
+            button.style.display = 'none'; // Скрываем кнопку после нажатия
 
-                // Отправляем данные в бот
+            // Отправляем данные в бот (если нужно)
+            if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
                 Telegram.WebApp.sendData(JSON.stringify({ action: "participate" }));
-
-                // Меняем текст
-                title.innerText = "🎉 Вы участвуете в розыгрыше! 🎉";
-                message.innerText = "Спасибо за участие! Ждите результатов.";
-                button.style.display = 'none'; // Скрываем кнопку после успешного участия
-
-                // Закрываем мини-приложение через 2 секунды
-                setTimeout(() => {
-                    Telegram.WebApp.close();
-                }, 2000);
-            } catch (error) {
-                console.error("Ошибка:", error);
-                title.innerText = "Ошибка!";
-                message.innerText = "Не удалось принять участие. Попробуйте позже.";
-                button.style.display = 'none';
             }
+
+            // Закрываем мини-приложение через 2 секунды (если нужно)
+            setTimeout(() => {
+                if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+                    Telegram.WebApp.close();
+                }
+            }, 2000);
         }
     </script>
 </body>
